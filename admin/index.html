@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageCraft Lite - Admin Control Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .header h1 {
+            color: #4285f4;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            color: #4285f4;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .btn {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            width: 100%;
+        }
+        .btn:hover {
+            background: #3367d6;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #4285f4;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="header">
+            <h1>🎨 ImageCraft Lite Admin Panel</h1>
+            <p>Manage your image editor platform and monetization</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>💰 Google AdSense Management</h3>
+                <div class="success-message" id="adsenseSuccess">AdSense settings updated!</div>
+                
+                <div class="form-group">
+                    <label>AdSense Publisher ID</label>
+                    <input type="text" id="adsensePublisherId" placeholder="ca-pub-1234567890123456">
+                </div>
+                
+                <div class="form-group">
+                    <label>Enable Ads</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="enableAds">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <button class="btn" onclick="saveAdSenseSettings()">Update AdSense</button>
+            </div>
+
+            <div class="card">
+                <h3>📢 Site Announcements</h3>
+                <div class="success-message" id="announcementSuccess">Announcement updated!</div>
+                
+                <div class="form-group">
+                    <label>Announcement Title</label>
+                    <input type="text" id="announcementTitle" placeholder="Important Update">
+                </div>
+                
+                <div class="form-group">
+                    <label>Announcement Message</label>
+                    <textarea id="announcementMessage" placeholder="New features added..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Show Announcement</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="showAnnouncement">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <button class="btn" onclick="saveAnnouncement()">Update Announcement</button>
+            </div>
+
+            <div class="card">
+                <h3>⚙️ Feature Management</h3>
+                <div class="success-message" id="featuresSuccess">Features updated!</div>
+                
+                <div class="form-group">
+                    <label>Advanced Filters</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="advancedFilters" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label>Premium Features</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="premiumFeatures">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <button class="btn" onclick="saveFeatures()">Update Features</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function saveAdSenseSettings() {
+            const settings = {
+                publisherId: document.getElementById('adsensePublisherId').value,
+                enabled: document.getElementById('enableAds').checked
+            };
+            localStorage.setItem('adsenseSettings', JSON.stringify(settings));
+            showSuccess('adsenseSuccess');
+        }
+
+        function saveAnnouncement() {
+            const announcement = {
+                title: document.getElementById('announcementTitle').value,
+                message: document.getElementById('announcementMessage').value,
+                show: document.getElementById('showAnnouncement').checked
+            };
+            localStorage.setItem('siteAnnouncement', JSON.stringify(announcement));
+            showSuccess('announcementSuccess');
+        }
+
+        function saveFeatures() {
+            const features = {
+                advancedFilters: document.getElementById('advancedFilters').checked,
+                premiumFeatures: document.getElementById('premiumFeatures').checked
+            };
+            localStorage.setItem('featureSettings', JSON.stringify(features));
+            showSuccess('featuresSuccess');
+        }
+
+        function showSuccess(elementId) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "imagecraft-lite",
+  "version": "1.0.0",
+  "description": "Professional web-based image editing application",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Static build complete'"
+  },
+  "dependencies": {
+    "@netlify/functions": "^2.0.0"
+  },
+  "keywords": ["image-editor", "photo-editor", "web-app"],
+  "author": "ImageCraft Lite",
+  "license": "MIT"
+}

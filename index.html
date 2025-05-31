@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>ImageCraft Lite - Professional Image Editor</title>
+    <meta name="description" content="Free online image editor for compression, resizing, cropping, filters and more. Fast, responsive, and easy to use." />
+    <meta property="og:title" content="ImageCraft Lite - Professional Image Editor" />
+    <meta property="og:description" content="Free online image editor for compression, resizing, cropping, filters and more. Fast, responsive, and easy to use." />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+      [class*="admin"], [id*="admin"], 
+      [class*="control"], [id*="control"],
+      .admin-panel, .control-panel,
+      .settings-panel, .admin-controls {
+        display: none !important;
+        visibility: hidden !important;
+      }
+    </style>
+    
+    <script type="module" crossorigin src="./assets/index-DPjpCodx.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Dfa_uwy7.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <script>
+      function addGoogleLoginButton() {
+        if (document.querySelector('.google-login-btn')) return;
+        
+        const loginBtn = document.createElement('button');
+        loginBtn.className = 'google-login-btn';
+        loginBtn.innerHTML = '🔐 Sign in with Google';
+        loginBtn.style.cssText = `
+          position: fixed;
+          top: 15px;
+          right: 15px;
+          background: #4285f4;
+          color: white;
+          border: none;
+          padding: 10px 18px;
+          border-radius: 20px;
+          cursor: pointer;
+          font-size: 13px;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+          transition: all 0.3s ease;
+          z-index: 9999;
+          font-family: 'Roboto', sans-serif;
+        `;
+        
+        loginBtn.onmouseover = () => {
+          loginBtn.style.background = '#3367d6';
+          loginBtn.style.transform = 'translateY(-1px)';
+        };
+        
+        loginBtn.onmouseout = () => {
+          loginBtn.style.background = '#4285f4';
+          loginBtn.style.transform = 'translateY(0)';
+        };
+        
+        loginBtn.onclick = () => {
+          window.location.href = '/.netlify/functions/auth/google';
+        };
+        
+        document.body.appendChild(loginBtn);
+      }
+      
+      function removeAdminControls() {
+        const adminElements = document.querySelectorAll('[class*="admin"], [id*="admin"], [class*="control"]');
+        adminElements.forEach(element => {
+          if (element.className !== 'google-login-btn') {
+            element.remove();
+          }
+        });
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          addGoogleLoginButton();
+          removeAdminControls();
+        }, 1000);
+        
+        setTimeout(() => {
+          removeAdminControls();
+        }, 3000);
+      });
+      
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('auth') === 'success') {
+        window.history.replaceState({}, document.title, window.location.pathname);
+        
+        const successMsg = document.createElement('div');
+        successMsg.innerHTML = '✅ Successfully signed in with Google!';
+        successMsg.style.cssText = `
+          position: fixed;
+          top: 60px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #4caf50;
+          color: white;
+          padding: 12px 24px;
+          border-radius: 25px;
+          z-index: 10000;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        `;
+        document.body.appendChild(successMsg);
+        
+        setTimeout(() => successMsg.remove(), 3000);
+      }
+    </script>
+  </body>
+</html>

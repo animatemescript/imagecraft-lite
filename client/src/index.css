@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 11% 98%; /* #F5F7FA */
+  --foreground: 215 25% 27%; /* #3F4A5C */
+  --muted: 210 11% 96%; /* #F1F3F7 */
+  --muted-foreground: 215 16% 47%; /* #6B7791 */
+  --popover: 0 0% 100%; /* #FFFFFF */
+  --popover-foreground: 215 25% 27%; /* #3F4A5C */
+  --card: 0 0% 100%; /* #FFFFFF */
+  --card-foreground: 215 25% 27%; /* #3F4A5C */
+  --border: 215 14% 89%; /* #D8DDE6 */
+  --input: 215 14% 89%; /* #D8DDE6 */
+  --primary: 175 84% 32%; /* #14B8A6 - Main teal */
+  --primary-foreground: 0 0% 100%; /* #FFFFFF */
+  --secondary: 210 11% 96%; /* #F1F3F7 */
+  --secondary-foreground: 215 25% 27%; /* #3F4A5C */
+  --accent: 210 11% 96%; /* #F1F3F7 */
+  --accent-foreground: 215 25% 27%; /* #3F4A5C */
+  --destructive: 0 84% 60%; /* #EF4444 */
+  --destructive-foreground: 0 0% 100%; /* #FFFFFF */
+  --ring: 175 84% 32%; /* #14B8A6 */
+  --radius: 0.75rem;
+  
+  /* Custom colors for ImageCraft */
+  --teal-primary: 175 84% 32%; /* #14B8A6 */
+  --teal-secondary: 175 85% 39%; /* #10D9C4 */
+  --teal-dark: 175 77% 28%; /* #0D9488 */
+  --forest-dark: 168 85% 12%; /* #065F46 */
+  --forest-light: 168 81% 17%; /* #047857 */
+  --blue-accent: 217 91% 60%; /* #3B82F6 */
+  --orange-accent: 25 95% 53%; /* #FB923C */
+  --yellow-accent: 45 93% 58%; /* #FDE047 */
+}
+
+.dark {
+  --background: 224 71% 4%; /* #0F172A */
+  --foreground: 213 31% 91%; /* #E2E8F0 */
+  --muted: 223 47% 11%; /* #1E293B */
+  --muted-foreground: 215 20% 65%; /* #94A3B8 */
+  --popover: 224 71% 4%; /* #0F172A */
+  --popover-foreground: 213 31% 91%; /* #E2E8F0 */
+  --card: 224 71% 4%; /* #0F172A */
+  --card-foreground: 213 31% 91%; /* #E2E8F0 */
+  --border: 216 34% 17%; /* #334155 */
+  --input: 216 34% 17%; /* #334155 */
+  --primary: 175 84% 32%; /* #14B8A6 - Keep teal in dark mode */
+  --primary-foreground: 0 0% 100%; /* #FFFFFF */
+  --secondary: 223 47% 11%; /* #1E293B */
+  --secondary-foreground: 213 31% 91%; /* #E2E8F0 */
+  --accent: 223 47% 11%; /* #1E293B */
+  --accent-foreground: 213 31% 91%; /* #E2E8F0 */
+  --destructive: 0 63% 31%; /* #991B1B */
+  --destructive-foreground: 213 31% 91%; /* #E2E8F0 */
+  --ring: 175 84% 32%; /* #14B8A6 */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .gradient-teal {
+    background: linear-gradient(135deg, hsl(var(--teal-primary)) 0%, hsl(var(--teal-secondary)) 100%);
+  }
+  
+  .gradient-dark {
+    background: linear-gradient(135deg, hsl(var(--forest-dark)) 0%, hsl(var(--forest-light)) 100%);
+  }
+}
+
+@layer components {
+  .tool-btn {
+    @apply transition-all duration-200 hover:scale-105;
+  }
+  
+  .tool-btn:hover {
+    transform: translateY(-1px);
+  }
+  
+  .slider {
+    @apply appearance-none bg-gradient-to-r from-teal-500 to-teal-400 h-2 rounded-lg cursor-pointer;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    @apply appearance-none w-5 h-5 rounded-full bg-white cursor-pointer shadow-lg border-2 border-teal-500;
+  }
+  
+  .slider::-moz-range-thumb {
+    @apply w-5 h-5 rounded-full bg-white cursor-pointer shadow-lg border-2 border-teal-500;
+    border: none;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--teal-primary)), hsl(var(--teal-secondary)));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
